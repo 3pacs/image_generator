@@ -1,5 +1,5 @@
 img0:
-red = sin(pi*cos(pi*x*sin(pi*cos(pi*cos(pi*sin(pi*y))))))
-green = sin(pi*sin(pi*x)*cos(pi*sin(pi*sin(pi*sin(pi*x)))))
-blue = cos(pi*sin(pi*cos(pi*cos(pi*sin(pi*x*y)*y)*y)))
+red = sin(pi*x)
+green = cos(pi*cos(pi*x)*x)
+blue = cos(pi*y)
 
