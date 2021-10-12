@@ -43,17 +43,22 @@ def init_db():
 @app.route('/')
 def home():
     """Home Page view that has the image and a button that generates a new image"""
-    img = makeImage(1)
+    img = "img0.png"
     db = get_db()
     image = os.path.join(app.config['UPLOAD_FOLDER'], img)
     bg = os.path.join(app.config['UPLOAD_FOLDER'], "new/bg/"+img)
     return render_template("index.html", img_produce=image,img_produce2=bg)
 
+@app.route('/generate')
+def generate():
+    img = makeImage(1)
+    return redirect(url_for('home'))
+
 @app.route('/gallary')
 def gallary():
     images = []
     for save in query_db('select * from saved'):
-        print(save[1], 'has the path ', save[0])
+        #print(save[1], 'has the path ', save[0])
         images.append({
             'id':save[1],
             'image':save[0]
@@ -67,7 +72,9 @@ import time
 @app.route('/add_to_gallary/<id>')
 def add_to_gallary(id):
     
-    if id == 1:
+    print(id)
+    if str(id) == "1":
+
         name = int(time.time())
         x = "static/saved/"+str(name)+".png"
         copyfile("static/output/new/bg/img0.png", x)
@@ -75,7 +82,8 @@ def add_to_gallary(id):
         cur.execute("""INSERT INTO saved(image) 
                VALUES (?);""", (x,))
         
-    else:
+    elif str(id) == "2":
+ 
         name = int(time.time())
         x = "static/saved/"+str(name)+".png"
         copyfile("static/output/img0.png", x)
