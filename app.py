@@ -61,7 +61,9 @@ def gallary():
         #print(save[1], 'has the path ', save[0])
         images.append({
             'id':save[1],
-            'image':save[0]
+            'image':save[0],
+            'name':save[0].split('/')[-1],
+            'type':save[2]
         })
     return render_template("gallary.html",images=images)
 
@@ -79,8 +81,8 @@ def add_to_gallary(id):
         x = "static/saved/"+str(name)+".png"
         copyfile("static/output/new/bg/img0.png", x)
         cur = get_db().cursor()
-        cur.execute("""INSERT INTO saved(image) 
-               VALUES (?);""", (x,))
+        cur.execute("""INSERT INTO saved(image,type) 
+               VALUES (?,?);""", (x,"Image 2"))
         
     elif str(id) == "2":
  
@@ -88,8 +90,8 @@ def add_to_gallary(id):
         x = "static/saved/"+str(name)+".png"
         copyfile("static/output/img0.png", x)
         cur = get_db().cursor()
-        cur.execute("""INSERT INTO saved(image) 
-               VALUES (?);""", (x,))
+        cur.execute("""INSERT INTO saved(image,type) 
+               VALUES (?,?);""", (x,"Image 1"))
     
     get_db().commit()
     return redirect(url_for("home"))
